@@ -70,29 +70,30 @@ typedef struct liststr
 
 typedef struct passinfo
 {
-	char *path;
-	char **argv;
 	char *arg;
-	char **environ;
-	char *fname;
-	char **cmd_buf;
+	char **argv;
+	char *path;
 	int argc;
-	int env_changed;
-	int status;
+	unsigned int line_count;
 	int err_num;
 	int linecount_flag;
-	int cmd_buf_type;
-	int readfd;
-	int histcount;
-	unsigned int line_count;
+	char *fname;
 	list_t *env;
 	list_t *history;
 	list_t *alias;
+	char **environ;
+	int env_changed;
+	int status;
+
+	char **cmd_buf; /* pointer to cmd ; chain buffer, for memory mangement */
+	int cmd_buf_type; /* CMD_type ||, &&, ; */
+	int readfd;
+	int histcount;
 } info_t;
 
 #define INFO_INIT \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-	0, 0, 0}
+		0, 0, 0}
 
 /**
  * struct builtin - contain a builtin string and related function.
